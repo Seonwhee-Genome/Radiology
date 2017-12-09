@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from ipywidgets import interact, interactive
 from ipywidgets import widgets
 
-def myshow(img, title=None, margin=0.05, dpi=80 ):
+def myshow(img, title=[], margin=0.05, dpi=80 ):
     nda = sitk.GetArrayViewFromImage(img)
 
     spacing = img.GetSpacing()
@@ -26,6 +26,7 @@ def myshow(img, title=None, margin=0.05, dpi=80 ):
 
         # take a z-slice
         slicer = True
+    
 
     if (slicer):
         ysize = nda.shape[1]
@@ -38,7 +39,7 @@ def myshow(img, title=None, margin=0.05, dpi=80 ):
     # Make a figure big enough to accomodate an axis of xpixels by ypixels
     # as well as the ticklabels, etc...
     figsize = (1 + margin) * ysize / dpi, (1 + margin) * xsize / dpi
-    def callback(z=None):
+    def callback(z=None):        
 
         extent = (0, xsize*spacing[1], ysize*spacing[0], 0)
 
@@ -53,18 +54,20 @@ def myshow(img, title=None, margin=0.05, dpi=80 ):
             ax.imshow(nda,extent=extent,interpolation=None)
         else:
             ax.imshow(nda[z,...],extent=extent,interpolation=None)
-
-        if title:
-            plt.title(title)
-
+            if title:
+                plt.title(title[z])
+            
         plt.show()
 
     if slicer:
-        interact(callback, z=(0,nda.shape[0]-1))
+        if title:
+            interact(callback, z=(0,nda.shape[0]-1))
+        else:
+            interact(callback, z=(0,nda.shape[0]-1))
     else:
         callback()
 
-def myshow3d(img, xslices=[], yslices=[], zslices=[], title=None, margin=0.05, dpi=80):
+def myshow3d(img, xslices=[], yslices=[], zslices=[], title=[], margin=0.05, dpi=80):
     size = img.GetSize()
     img_xslices = [img[s,:,:] for s in xslices]
     img_yslices = [img[:,s,:] for s in yslices]
@@ -100,6 +103,7 @@ def myshow3d(img, xslices=[], yslices=[], zslices=[], title=None, margin=0.05, d
                 img_slices_c = [sitk.VectorIndexSelectionCast(s, i) for s in img_slices]
                 img_comps.append(sitk.Tile(img_slices_c, [maxlen,d]))
             img = sitk.Compose(img_comps)
+    
 
 
     myshow(img, title, margin, dpi)
