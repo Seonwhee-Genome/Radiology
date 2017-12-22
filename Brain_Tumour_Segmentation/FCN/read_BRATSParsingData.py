@@ -23,6 +23,8 @@ def read_dataset(data_dir):
         result = pickle.load(f)        
         training_records = result[:int(len(result)*2/3)]
         validation_records = result[int(len(result)*2/3)+1:]
+        #print(training_records)
+        #print(validation_records)
         
         del result
 
@@ -54,25 +56,8 @@ def create_image_lists(image_dir):
                 elif 'Flair' in f:
                     record["FLAIR"] = f
                 elif '.OT.' in f:
-                    record["GT"] = f               
-            
-            for i in list(record.values()):                
-                print(i)
-                if "GT" in list(record.keys()):
-                    if i != record["GT"]:                        
-                        annot = record["GT"]
-                        new_record = {}
-                        new_record["image"] = i
-                        new_record["annotation"] = annot
-                        del annot
-                        image_list_training.append(new_record)
-                        del new_record
-                else:
-                    new_record = {}
-                    new_record["image"] = i
-                    image_list_training.append(new_record)
-                    del new_record
-                    
+                    record["annotation"] = f               
+            image_list_training.append(record)                             
 
     return image_list_training
 
@@ -91,6 +76,7 @@ def read_test_dataset(data_dir):
     with open(pickle_filepath, 'rb') as f:
         result = pickle.load(f)        
         test_records = result
+        #print(test_records)
         
         del result
 
