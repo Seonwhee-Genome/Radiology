@@ -1,8 +1,5 @@
 TwoPathCNN
 ==========
-> Tensorflow implementation of the following reference
-Authors : Havaei,M.; Davy,A.; Warde-Farley,D.; Biard,A.; Courville,A.; Bengio,Y.; Pal,C.; Jodoin,P.M.; Larochelle,H.
-Title : Brain tumor segmentation with Deep Neural Networks
 
 Two-phase training
 ------------------
@@ -19,7 +16,7 @@ Regularization
 Cascaded architectures
 ----------------------
 | After training the TwoPATHCNN with the two-phase stochastic gradient descent procedure, they fixed the parameters of the TwoPATHCNN and included it in the cascaded architecture(the INPUTCascadeCNN, the LOCALCascadeCNN, or the MFCascadeCNN).
-.. Havaei:: Cascaded_Architectures.png
+.. image:: Cascaded_Architectures.png
 
 
 >>> M. Havaei *et al.* **Brain Tumor Segmentation with Deep Neural Networks** Medical Image Analysis 35 (2017) 18-31
