@@ -1,6 +1,6 @@
 TwoPathCNN
 ==========
-
+ > M. Havaei *et al.* **Brain Tumor Segmentation with Deep Neural Networks** Medical Image Analysis 35 (2017) 18-31
 Two-phase training
 ------------------
 | The first training phase : They initially constructed their patches data-set such that all labels were equiprobable.
@@ -17,6 +17,3 @@ Cascaded architectures
 ----------------------
 | After training the TwoPATHCNN with the two-phase stochastic gradient descent procedure, they fixed the parameters of the TwoPATHCNN and included it in the cascaded architecture(the INPUTCascadeCNN, the LOCALCascadeCNN, or the MFCascadeCNN).
 .. image:: Cascaded_Architectures.png
-
-
->>> M. Havaei *et al.* **Brain Tumor Segmentation with Deep Neural Networks** Medical Image Analysis 35 (2017) 18-31
